@@ -11,14 +11,15 @@ func main() {
 	// Создаём логгер
 	logger := log.New(os.Stdout, "MORSE_SERVER: ", log.LstdFlags|log.Lshortfile)
 
-	// Создаём сервер с помощью пакета server
+	// Создаём сервер
 	srv := server.NewServer(logger)
 
 	// Логируем старт
-	logger.Println("Сервер запущен на http://localhost:8080")
+	logger.Println("Сервер запускается на http://localhost:8080")
 
 	// Запускаем сервер
-	if err := srv.Server.ListenAndServe(); err != nil {
-		logger.Fatal("Ошибка при запуске сервера: ", err)
+	err := srv.Server.ListenAndServe()
+	if err != nil {
+		srv.Logger.Fatal("Ошибка при запуске сервера: ", err)
 	}
 }
